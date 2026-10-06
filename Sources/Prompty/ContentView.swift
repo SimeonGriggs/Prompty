@@ -36,30 +36,34 @@ struct ControlsColumn: View {
                     .overlay(Circle().stroke(lineWidth: 1.5))
                     .contentShape(Circle())
             }
-            .foregroundStyle(Color.buttonGrey)
             .keyboardShortcut(.return, modifiers: .command)
             .help("Play / Pause (⌘↩)")
 
-            Stepper(
-                title: "Speed",
-                value: "\(Int(state.speed))",
-                increment: state.faster,
-                decrement: state.slower,
-                incrementShortcut: KeyboardShortcut(.upArrow, modifiers: .command),
-                decrementShortcut: KeyboardShortcut(.downArrow, modifiers: .command)
-            )
+            VStack(spacing: 40) {
+                Stepper(
+                    title: "Speed",
+                    value: "\(Int(state.speed))",
+                    increment: state.faster,
+                    decrement: state.slower,
+                    incrementShortcut: KeyboardShortcut(.upArrow, modifiers: .command),
+                    decrementShortcut: KeyboardShortcut(.downArrow, modifiers: .command)
+                )
 
-            Stepper(
-                title: "Size",
-                value: "\(Int(state.fontSize))",
-                increment: state.larger,
-                decrement: state.smaller,
-                incrementShortcut: KeyboardShortcut("=", modifiers: .command),
-                decrementShortcut: KeyboardShortcut("-", modifiers: .command)
-            )
+                Stepper(
+                    title: "Size",
+                    value: "\(Int(state.fontSize))",
+                    increment: state.larger,
+                    decrement: state.smaller,
+                    incrementShortcut: KeyboardShortcut("=", modifiers: .command),
+                    decrementShortcut: KeyboardShortcut("-", modifiers: .command)
+                )
+            }
+            .opacity(state.isPlaying ? 0 : 1)
+            .allowsHitTesting(!state.isPlaying)
+            .animation(.easeInOut(duration: 0.4), value: state.isPlaying)
         }
         .buttonStyle(.plain)
-        .foregroundStyle(Color.white)
+        .foregroundStyle(Color.buttonGrey)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black)
     }
@@ -103,7 +107,6 @@ private struct CircleButton: View {
                 .overlay(Circle().stroke(lineWidth: 1.5))
                 .contentShape(Circle())
         }
-        .foregroundStyle(Color.buttonGrey)
     }
 }
 
