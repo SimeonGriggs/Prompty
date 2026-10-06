@@ -8,8 +8,15 @@ swift build -c release
 
 APP="build/Prompty.app"
 rm -rf "$APP"
-mkdir -p "$APP/Contents/MacOS"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$(swift build -c release --show-bin-path)/Prompty" "$APP/Contents/MacOS/Prompty"
+
+xcrun actool Prompty.icon \
+    --compile "$APP/Contents/Resources" \
+    --app-icon Prompty \
+    --platform macosx \
+    --minimum-deployment-target 14.0 \
+    --output-partial-info-plist build/icon-partial.plist >/dev/null
 
 cat > "$APP/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -23,6 +30,10 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>CFBundleIdentifier</key>
     <string>com.simeongriggs.prompty</string>
     <key>CFBundleExecutable</key>
+    <string>Prompty</string>
+    <key>CFBundleIconFile</key>
+    <string>Prompty</string>
+    <key>CFBundleIconName</key>
     <string>Prompty</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
