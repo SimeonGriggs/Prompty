@@ -29,7 +29,7 @@ A minimal native macOS teleprompter. Pure black background, large white text, no
 
 ## Building
 
-Requires macOS 14 or later and Xcode 26 or later (for the Icon Composer `.icon` file).
+Requires macOS 27 or later and Xcode 27 or later.
 
 ```sh
 ./build-app.sh

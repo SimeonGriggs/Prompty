@@ -15,7 +15,7 @@ xcrun actool Prompty.icon \
     --compile "$APP/Contents/Resources" \
     --app-icon Prompty \
     --platform macosx \
-    --minimum-deployment-target 14.0 \
+    --minimum-deployment-target 27.0 \
     --output-partial-info-plist build/icon-partial.plist >/dev/null
 
 cat > "$APP/Contents/Info.plist" <<'PLIST'
@@ -42,7 +42,7 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>CFBundleVersion</key>
     <string>1</string>
     <key>LSMinimumSystemVersion</key>
-    <string>14.0</string>
+    <string>27.0</string>
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>NSPrincipalClass</key>

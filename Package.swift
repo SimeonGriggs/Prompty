@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "Prompty",
-    platforms: [.macOS(.v14)],
+    platforms: [.macOS("27.0")],
     targets: [
         .executableTarget(
             name: "Prompty",
