@@ -31,10 +31,12 @@ struct ControlsColumn: View {
                 state.isPlaying.toggle()
             } label: {
                 Image(systemName: state.isPlaying ? "pause.fill" : "play.fill")
-                    .font(.system(size: 40))
-                    .frame(width: 80, height: 80)
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                    .font(.system(size: 22))
+                    .frame(width: 52, height: 52)
+                    .overlay(Circle().stroke(lineWidth: 1.5))
+                    .contentShape(Circle())
             }
+            .foregroundStyle(Color.buttonGrey)
             .keyboardShortcut(.return, modifiers: .command)
             .help("Play / Pause (⌘↩)")
 
@@ -77,25 +79,34 @@ private struct Stepper: View {
                 .font(.system(size: 12, weight: .semibold))
                 .tracking(1.5)
 
-            Button(action: increment) {
-                Image(systemName: "plus")
-                    .font(.system(size: 22, weight: .semibold))
-                    .frame(width: 50, height: 50)
-                    .overlay(Circle().stroke(Color.white, lineWidth: 1.5))
-            }
-            .keyboardShortcut(incrementShortcut)
+            CircleButton(systemName: "plus", action: increment)
+                .keyboardShortcut(incrementShortcut)
 
             Text(value)
                 .font(.system(size: 16, weight: .medium).monospacedDigit())
 
-            Button(action: decrement) {
-                Image(systemName: "minus")
-                    .font(.system(size: 22, weight: .semibold))
-                    .frame(width: 50, height: 50)
-                    .overlay(Circle().stroke(Color.white, lineWidth: 1.5))
-            }
-            .keyboardShortcut(decrementShortcut)
+            CircleButton(systemName: "minus", action: decrement)
+                .keyboardShortcut(decrementShortcut)
         }
-        .contentShape(Rectangle())
     }
+}
+
+private struct CircleButton: View {
+    let systemName: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemName)
+                .font(.system(size: 14, weight: .semibold))
+                .frame(width: 34, height: 34)
+                .overlay(Circle().stroke(lineWidth: 1.5))
+                .contentShape(Circle())
+        }
+        .foregroundStyle(Color.buttonGrey)
+    }
+}
+
+private extension Color {
+    static let buttonGrey = Color(white: 0.45)
 }
